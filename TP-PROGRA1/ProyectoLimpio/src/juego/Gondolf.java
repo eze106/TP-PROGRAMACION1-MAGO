@@ -18,6 +18,8 @@ public class Gondolf {
 	public static final int ANCHO_PANTALLA = 700; //estas tres variantes las ajustamos segun la resolucion
 	public static final int ALTO_PANTALLA = 500;
 	public static final int ANCHO_MENU = 150; //esto es el ancho de la botonera
+	private int vida = 100;
+	
 	
 	public Gondolf(double x, double y) {
 		this.x = x;
@@ -86,17 +88,34 @@ public class Gondolf {
 	}
 	
 	public boolean colisionaEnemigo(Murcielago[] murcielagos) {
-		for (Murcielago m : murcielagos) {
-			if (m != null && this.y + this.alto / 2 - 25 <= m.getY() + m.getAlto() / 2
-					&& this.y - this.alto / 2 + 30 >= m.getY() - m.getAlto() / 2
-					&& this.x - this.ancho / 2 + 10 <= m.getX() + m.getAncho() / 2
-					&& this.x + this.ancho / 2 - 10 >= m.getX() - m.getAncho() / 2) {
+		for (int i = 0; i < murcielagos.length; i++) {
+			Murcielago m = murcielagos[i];
+			if (m != null &&
+				this.y + this.alto / 2 - 25 <= m.getY() + m.getAlto() / 2 &&
+				this.y - this.alto / 2 + 30 >= m.getY() - m.getAlto() / 2 &&
+				this.x - this.ancho / 2 + 10 <= m.getX() + m.getAncho() / 2 &&
+				this.x + this.ancho / 2 - 10 >= m.getX() - m.getAncho() / 2) {
+				
+				this.vida -= 10; // o la cantidad que quieras restar
+				murcielagos[i] = null; // Elimina el murciélago que chocó
 				return true;
 			}
 		}
 		return false;
-		
 	}
+
+
+	public void restarVida(int cantidad) {
+	    vida -= cantidad;
+	    if (vida < 0) {
+	        vida = 0;
+	    }
+	}
+	
+	public int getVida() {
+	    return vida;
+	}
+	
 	public double getX() {
 		return x;
 	}
@@ -128,6 +147,4 @@ public class Gondolf {
 	public void setAlto(int alto) {
 		this.alto = alto;
 	}
-
-
 }

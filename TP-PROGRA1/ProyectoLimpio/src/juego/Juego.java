@@ -16,7 +16,7 @@ public class Juego extends InterfaceJuego
 	private Murcielago[] murcielagos;
 	private int totalMurcielagos = 200;
 	private int murcielagosActivos = 0;
-	private int maxMurcielagosEnPantalla = 20;
+	private int maxMurcielagosEnPantalla = 10;
 	private Image fondo, botonera, menu;
 	private Botonera explosion1;
 	private Botonera explosion2;
@@ -61,8 +61,8 @@ public class Juego extends InterfaceJuego
 			rocas = new Obstaculos[15]; // cantidad de islas
 			double xObstaculos;
 			double yObstaculos = entorno.alto() - 120;
-			int[] cantidadRocasPorNivel = { 5, 3, 2, 2 };
-			double[] desplazamientoXPorNivel = { 100, 150, 365, 250 };
+			int[] cantidadRocasPorNivel = { 1, 3, 2, 2 };
+			double[] desplazamientoXPorNivel = { 100, 200, 400, 250 };
 			int cantRocas = 0;
 			for (int nivel = 0; nivel < cantidadRocasPorNivel.length; nivel++) {
 				xObstaculos = 275 - ((cantidadRocasPorNivel[nivel] - 1) * desplazamientoXPorNivel[nivel]) / 2;
@@ -77,12 +77,7 @@ public class Juego extends InterfaceJuego
 	}
 
 	public void tick()
-	{
-		if (entorno.sePresionoBoton(entorno.BOTON_IZQUIERDO)) {
-		    int mouseX = entorno.mouseX();
-		    int mouseY = entorno.mouseY();
-		    System.out.println("x="+entorno.mouseX()+"y= "+ entorno.mouseY());
-		}
+	{		
 		if (!juegoIniciado) {
 		entorno.dibujarImagen(menu, entorno.ancho() / 2, entorno.alto() / 2, 0, 1);
 		if (entorno.mouseX() >= 416 && entorno.mouseX() <= 616 && entorno.mouseY() >= 324
@@ -92,11 +87,15 @@ public class Juego extends InterfaceJuego
 			}
 		return;
 	}
-///////////////////fondo blanco/////////////////////////////////////////////////////////
+//////////                     INTERFAZ                  /////////////////////////////////////////////////////////
 		entorno.dibujarImagen(fondo ,275, 250, 0);
 		entorno.dibujarImagen(botonera,625,250,0);
+		
 		entorno.cambiarFont("Arial", 12, Color.WHITE);
 		entorno.escribirTexto(""+totalMurcielagos, 640, 419);
+		
+		entorno.cambiarFont("Arial", 16, Color.WHITE);
+		entorno.escribirTexto("VIDA: "+gondolf.getVida(), 586, 121);
 		// Dibujar las Rocas
 				for (int i = 0; i < rocas.length; i++) {
 					if (rocas[i] != null) {
@@ -110,6 +109,15 @@ public class Juego extends InterfaceJuego
 		if (gondolf.colisionaConRoca(rocas,gondolf.getX(),gondolf.getY())) {
 		    //System.out.println("¡Gondolf colisionó con una roca!");
 		}
+		if (gondolf.colisionaEnemigo(murcielagos)) {
+			//System.out.println("¡Gondolf fue golpeado por un murciélago!");
+		}
+		if(gondolf.getVida()==0) {
+			//gondolf=null;			
+		}
+		//System.out.println("Vida de Gondolf: " + gondolf.getVida());
+
+
 
 ////////////////////////////// Botonera///////////////////////////////		
 		if (entorno.sePresionoBoton(entorno.BOTON_IZQUIERDO)) {
