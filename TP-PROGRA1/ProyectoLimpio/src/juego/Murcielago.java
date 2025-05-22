@@ -39,15 +39,12 @@ public class Murcielago {
 
     public void dibujar(Entorno entorno) {
         if (activo) {
-        	entorno.dibujarImagen(imagenMurcielago, x, y, 0.2, 0.2);
-        	
-            
+        	entorno.dibujarImagen(imagenMurcielago, x, y, 0.2, 0.2);        	     
         }
     }
 
     public void moverHacia(double objetivoX, double objetivoY) {
         if (!activo) return;
-
         double dx = objetivoX - this.x;
         double dy = objetivoY - this.y;
         double distancia = Math.sqrt(dx * dx + dy * dy);
@@ -57,4 +54,36 @@ public class Murcielago {
             this.y += 2 * dy / distancia;
         }
     }
+
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public double getAncho() {
+		return ancho;
+	}
+
+	public void setAncho(double ancho) {
+		this.ancho = ancho;
+	}
+
+	public double getAlto() {
+		return alto;
+	}
+
+	public void setAlto(double alto) {
+		this.alto = alto;
+	}
 }
