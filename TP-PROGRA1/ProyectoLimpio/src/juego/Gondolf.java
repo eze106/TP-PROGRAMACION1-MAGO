@@ -19,6 +19,7 @@ public class Gondolf {
 	public static final int ALTO_PANTALLA = 500;
 	public static final int ANCHO_MENU = 150; //esto es el ancho de la botonera
 	private int vida = 100;
+	private int mana = 100;
 	
 	
 	public Gondolf(double x, double y) {
@@ -98,6 +99,7 @@ public class Gondolf {
 				
 				this.vida -= 10; // o la cantidad que quieras restar
 				murcielagos[i] = null; // Elimina el murciélago que chocó
+				this.sumarMana(5);
 				return true;
 			}
 		}
@@ -112,6 +114,32 @@ public class Gondolf {
 	    }
 	}
 	
+	public void sumarMana(int cantidad) {
+		mana += cantidad;
+		if (mana > 100) {
+			mana = 100;
+		}
+		if (mana < 0) {
+			mana = 0;
+		}
+	}
+
+
+	public void restarMana(int cantidad) {
+		 mana -= cantidad; {
+			    if (mana < 0) { // Límite inferior (opcional)
+			        mana = 0;
+			    }
+		 }
+	}
+	
+	
+	public int getMana() {
+		return mana;
+	}
+	public void setMana(int mana) {
+		this.mana = mana;
+	}
 	public int getVida() {
 	    return vida;
 	}
